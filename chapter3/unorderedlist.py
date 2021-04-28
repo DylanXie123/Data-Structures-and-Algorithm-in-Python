@@ -37,7 +37,18 @@ class UnorderedList:
         return count
 
     def remove(self, item):
-        pass
+        current = self.head
+        previous = None
+        while current != None:
+            if current.getData() != item:
+                previous = current
+                current = current.getNext()
+            else:
+                if previous == None:
+                    self.head = current.getNext()
+                else:
+                    previous.setNext(current.getNext())
+                return
 
     def search(self, item):
         current = self.head
@@ -49,7 +60,10 @@ class UnorderedList:
         return False
 
     def append(self, item):
-        pass
+        current = self.head
+        while current.getNext() != None:
+            current = current.getNext()
+        current.setNext(Node(item))
 
     def index(self, item):
         current = self.head
@@ -58,7 +72,8 @@ class UnorderedList:
             if current.getData() != item:
                 pos = pos + 1
                 current = current.getNext()
-        return pos
+            else:
+                return pos
 
     def insert(self, pos, item):
         pass

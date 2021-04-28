@@ -56,3 +56,14 @@ def test_unorderedList():
     assert l.search(4) == False
     assert l.index(2) == 1
     assert l.index('0.5') == 0
+    l.add(10)
+    l.add(9)
+    assert l.search(10) == True
+    assert l.search(9) == True
+    l.remove(10)
+    l.remove(9)
+    assert l.search(10) == False
+    assert l.search(9) == False
+    l.append(4)
+    assert l.size() == 3
+    assert l.index(4) == 2
