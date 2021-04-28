@@ -1,3 +1,4 @@
+from chapter3.unorderedlist import UnorderedList
 from chapter3.deque import Deque
 from chapter3.queue import Queue
 from chapter3.stack import Stack
@@ -41,3 +42,17 @@ def test_deque():
     assert d.size() == 4
     assert d.removeFront() == 'dog'
     assert d.removeRear() == 10
+
+
+def test_unorderedList():
+    l = UnorderedList()
+    assert l.isEmpty() == True
+    assert l.size() == 0 
+    l.add(2)
+    l.add('0.5')
+    assert l.size() == 2
+    assert l.search(2) == True
+    assert l.search('0.5') == True
+    assert l.search(4) == False
+    assert l.index(2) == 1
+    assert l.index('0.5') == 0
