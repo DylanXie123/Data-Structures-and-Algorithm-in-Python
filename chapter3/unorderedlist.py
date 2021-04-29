@@ -87,7 +87,7 @@ class UnorderedList:
         temp.setNext(current)
         previous.setNext(temp)
 
-    def pop(self):
+    def __popLast(self):
         current = self.head
         if current.getNext() == None:
             self.head = None
@@ -98,7 +98,9 @@ class UnorderedList:
             current = current.getNext()
         previous.setNext(None)
 
-    def pop(self, pos):
+    def pop(self, pos=None):
+        if pos == None:
+            return self.__popLast()
         if pos == 0:
             self.head.setNext(self.head.getNext())
         else:
