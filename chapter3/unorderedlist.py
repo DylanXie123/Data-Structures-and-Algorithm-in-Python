@@ -76,10 +76,38 @@ class UnorderedList:
                 return pos
 
     def insert(self, pos, item):
-        pass
+        current = self.head
+        previous = None
+        index = 0
+        while index < pos:
+            previous = current
+            current = current.getNext()
+            index = index + 1
+        temp = Node(item)
+        temp.setNext(current)
+        previous.setNext(temp)
 
     def pop(self):
-        pass
+        current = self.head
+        if current.getNext() == None:
+            self.head = None
+            return
+        previous = None
+        while current.getNext() != None:
+            previous = current
+            current = current.getNext()
+        previous.setNext(None)
 
     def pop(self, pos):
-        pass
+        if pos == 0:
+            self.head.setNext(self.head.getNext())
+        else:
+            index = 0
+            current = self.head
+            previous = None
+
+            while index < pos:
+                previous = current
+                current = current.getNext()
+                index = index + 1
+            previous.setNext(current.getNext())
