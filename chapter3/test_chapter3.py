@@ -1,3 +1,4 @@
+from chapter3.orderedlist import OrderedList
 from chapter3.unorderedlist import UnorderedList
 from chapter3.deque import Deque
 from chapter3.queue import Queue
@@ -47,7 +48,7 @@ def test_deque():
 def test_unorderedList():
     l = UnorderedList()
     assert l.isEmpty() == True
-    assert l.size() == 0 
+    assert l.size() == 0
     l.add(2)
     l.add('0.5')
     assert l.size() == 2
@@ -67,3 +68,45 @@ def test_unorderedList():
     l.append(4)
     assert l.size() == 3
     assert l.index(4) == 2
+    l.insert(1, 10)
+    assert l.size() == 4
+    assert l.index(10) == 1
+    assert l.index('0.5') == 0
+    assert l.index(2) == 2
+    l.pop()
+    assert l.size() == 3
+    assert l.search(4) == False
+    l.pop(1)
+    assert l.size() == 2
+    assert l.search(10) == False
+
+
+def test_orderedList():
+    l = OrderedList()
+    assert l.isEmpty() == True
+    assert l.size() == 0
+    l.add(2)
+    l.add(10)
+    l.add(1)
+    assert l.size() == 3
+    assert l.search(2) == True
+    assert l.search(10) == True
+    assert l.search(4) == False
+    assert l.index(2) == 1
+    assert l.index(1) == 0
+    assert l.search(10) == True
+    assert l.search(1) == True
+    l.remove(10)
+    assert l.search(10) == False
+    l.add(10)
+    l.add(0.2)
+    l.add(5)
+    assert l.size() == 5
+    assert l.index(5) == 3
+    assert l.index(10) == 4
+    l.pop()
+    assert l.size() == 4
+    assert l.search(10) == False
+    l.pop(1)
+    assert l.size() == 3
+    assert l.search(1) == False

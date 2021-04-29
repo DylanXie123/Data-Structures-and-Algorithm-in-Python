@@ -16,25 +16,28 @@ class Node:
         self.next = next
 
 
-class UnorderedList:
+class OrderedList:
     def __init__(self) -> None:
         self.head = None
 
-    def isEmpty(self):
-        return self.head == None
-
     def add(self, item):
-        newNode = Node(item)
-        newNode.setNext(self.head)
-        self.head = newNode
-
-    def size(self):
-        count = 0
+        if self.isEmpty():
+            self.head = Node(item)
+            return
         current = self.head
+        previous = None
         while current != None:
-            count = count + 1
-            current = current.getNext()
-        return count
+            if current.getData() < item:
+                previous = current
+                current = current.getNext()
+            else:
+                break
+        temp = Node(item)
+        temp.setNext(current)
+        if previous == None:
+            self.head = temp
+        else:
+            previous.setNext(temp)
 
     def remove(self, item):
         current = self.head
@@ -52,51 +55,39 @@ class UnorderedList:
 
     def search(self, item):
         current = self.head
+        found = False
         while current != None:
-            if current.getData() != item:
+            if current.getData() < item:
                 current = current.getNext()
+            elif current.getData() == item:
+                found = True
+                break
             else:
-                return True
-        return False
+                break
+        return found
 
-    def append(self, item):
+    def isEmpty(self):
+        return self.head == None
+
+    def size(self):
+        count = 0
         current = self.head
-        while current.getNext() != None:
+        while current != None:
+            count = count + 1
             current = current.getNext()
-        current.setNext(Node(item))
+        return count
 
     def index(self, item):
-        current = self.head
         pos = 0
+        current = self.head
         while current != None:
-            if current.getData() != item:
-                pos = pos + 1
+            if current.getData() < item:
                 current = current.getNext()
+                pos = pos+1
+            elif current.getData() > item:
+                raise Exception('Not in list')
             else:
                 return pos
-
-    def insert(self, pos, item):
-        current = self.head
-        previous = None
-        index = 0
-        while index < pos:
-            previous = current
-            current = current.getNext()
-            index = index + 1
-        temp = Node(item)
-        temp.setNext(current)
-        previous.setNext(temp)
-
-    def __popLast(self):
-        current = self.head
-        if current.getNext() == None:
-            self.head = None
-            return
-        previous = None
-        while current.getNext() != None:
-            previous = current
-            current = current.getNext()
-        previous.setNext(None)
 
     def pop(self, pos=None):
         if pos == None:
@@ -113,3 +104,14 @@ class UnorderedList:
                 current = current.getNext()
                 index = index + 1
             previous.setNext(current.getNext())
+
+    def __popLast(self):
+        current = self.head
+        if current.getNext() == None:
+            self.head = None
+            return
+        previous = None
+        while current.getNext() != None:
+            previous = current
+            current = current.getNext()
+        previous.setNext(None)
